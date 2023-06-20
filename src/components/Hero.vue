@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { ChevronRightIcon, ShoppingBagIcon, XMarkIcon } from "@heroicons/vue/20/solid";
-import type { ProductsElement } from "../data/products.interfaces";
+import { ChevronRightIcon, ShoppingBagIcon, XMarkIcon, PlusIcon, MinusIcon } from "@heroicons/vue/20/solid";
+import type { ProductQuantity } from "../data/products.interfaces";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/vue";
-import AddDeleteBtns from "./AddDeleteBtns.vue"
 
 defineProps<{
-  bag: ProductsElement[];
+  bag: ProductQuantity[];
 }>();
+
+defineEmits([
+    'increase-product-quantity','decrease-product-quantity'
+])
 
 </script>
 <template>
@@ -76,23 +79,37 @@ defineProps<{
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="product in bag" :key="product.id" class="border-b border-gray-200">
+                      <tr v-for="product in bag" :key="product.data.id" class="border-b border-gray-200">
                         <td class="max-w-0 py-5 pl-4 pr-3 text-sm sm:pl-0">
-                          <img class="w-6" :src="`productsImages/${product.image}.jpg`" />
+                          <img class="w-6" :src="`productsImages/${product.data.image}.jpg`" />
                         </td>
                         <td class="max-w-0 py-5 pl-4 pr-3 text-sm sm:pl-0">
                           <div class="font-medium text-gray-900">
-                            {{ product.name }}
+                            {{ product.data.name }}
                           </div>
                           <div class="mt-1 truncate text-gray-500">
-                            {{ product.description }}
+                            {{ product.data.description }}
                           </div>
                         </td>
                         <td class="py-5 pl-3 pr-4 text-right text-sm text-gray-500">
-                          {{ product.price }}€
+                          {{ product.data.price }}€ 
                         </td>
                         <td class="py-5 pl-3 pr-4 text-right text-sm text-gray-500">
-                          <AddDeleteBtns/>
+                          <div class="isolate inline-flex rounded-md shadow-sm text-xs">
+                            <button type="button"
+                                @click="$emit('decrease-product-quantity', product.data.id)"
+                                class="relative inline-flex items-center rounded-l-md bg-white px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10">
+                                <span class="sr-only">Add Product</span>
+                                <MinusIcon class="h-3 w-3" aria-hidden="true" />
+                            </button>
+                            <input class="w-10 text-center border border-slate-200 text-slate-700" v-model="product.quantity" />
+                            <button type="button"
+                                @click="$emit('increase-product-quantity', product.data.id)"
+                                class="relative -ml-px inline-flex items-center rounded-r-md bg-white px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10">
+                                <span class="sr-only">Delete Product</span>
+                                <PlusIcon class="h-3 w-3" aria-hidden="true" />
+                            </button>
+                        </div>
                         </td>
                         <td class="py-5 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">
                           <button type="button"
