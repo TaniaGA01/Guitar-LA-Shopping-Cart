@@ -1,15 +1,30 @@
 <script setup lang="ts">
 import { ChevronRightIcon, ShoppingBagIcon, XMarkIcon, PlusIcon, MinusIcon } from "@heroicons/vue/20/solid";
-import type { ProductQuantity } from "../data/products.interfaces";
+import type { ProductsElement, ProductQuantity } from "../data/products.interfaces";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/vue";
+import { computed } from "vue";
 
-defineProps<{
-  bag: ProductQuantity[];
+const props = defineProps<{
+  bag: ProductQuantity[]
+  promoProduct: ProductsElement
 }>();
 
 defineEmits([
-    'increase-product-quantity','decrease-product-quantity'
+    'increase-product-quantity','decrease-product-quantity', 'add-to-bag' 
 ])
+
+let subTotal = computed(():number => {
+  return props.bag.reduce((total, item) => total + (item.data.price * item.quantity), 0)// 0 is the bag's initial value
+})
+
+const taxe = computed(() => {
+  return ( subTotal.value * 20 ) / 100 
+})
+
+const total = computed(() => {
+  return ( subTotal.value + taxe.value ) 
+})
+
 
 </script>
 <template>
@@ -126,7 +141,7 @@ defineEmits([
                           Subtotal</th>
                         <th scope="row" class="pl-6 pr-3 pt-6 text-left text-sm font-normal text-gray-500 sm:hidden">
                           Subtotal</th>
-                        <td class="pl-3 pr-6 pt-6 text-right text-sm text-gray-500 sm:pr-0">$8,800.00</td>
+                        <td class="pl-3 pr-6 pt-6 text-right text-sm text-gray-500 sm:pr-0">{{ subTotal }} €</td>
                       </tr>
                       <tr>
                         <th scope="row" colspan="3"
@@ -134,7 +149,7 @@ defineEmits([
                           Tax</th>
                         <th scope="row" class="pl-6 pr-3 pt-4 text-left text-sm font-normal text-gray-500 sm:hidden">Tax
                         </th>
-                        <td class="pl-3 pr-6 pt-4 text-right text-sm text-gray-500 sm:pr-0">$1,760.00</td>
+                        <td class="pl-3 pr-6 pt-4 text-right text-sm text-gray-500 sm:pr-0">{{ taxe }} €</td>
                       </tr>
                       <tr>
                         <th scope="row" colspan="3"
@@ -142,7 +157,7 @@ defineEmits([
                           Total</th>
                         <th scope="row" class="pl-6 pr-3 pt-4 text-left text-sm font-semibold text-gray-900 sm:hidden">
                           Total</th>
-                        <td class="pl-3 pr-4 pt-4 text-right text-sm font-semibold text-gray-900 sm:pr-0">$10,560.00</td>
+                        <td class="pl-3 pr-4 pt-4 text-right text-sm font-semibold text-gray-900 sm:pr-0">{{ total }} €</td>
                       </tr>
                     </tfoot>
                   </table>
@@ -172,17 +187,22 @@ defineEmits([
             </span>
           </a>
         </div>
-        <h1 class="mt-10 text-4xl font-bold tracking-tight text-white sm:text-6xl">
-          RANCHER JUMBO CUTAWAY ELECTRIC
+        <h1 class="mt-10 text-4xl font-bold tracking-tight text-white sm:text-6xl uppercase">
+          {{ promoProduct.name }}
         </h1>
-        <p class="mt-6 text-lg leading-8 text-gray-300">
-          Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat
-          commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.
+        <p class="mt-6 text-2xl leading-8 text-gray-300">
+          {{ promoProduct.description }}
         </p>
-        <p class="mt-6 text-6xl leading-8 font-extrabold text-amber-600">300€</p>
+        <p class="mt-6 text-6xl leading-8 font-extrabold text-amber-600">
+          {{ promoProduct.price }} €
+        </p>
         <div class="mt-10 flex items-center gap-x-6">
-          <a href="#"
-            class="rounded-md bg-amber-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400">Add
+          <a 
+            href="#"
+            @click.prevent="$emit('add-to-bag', promoProduct)"
+            class="rounded-md bg-amber-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400"
+            
+            >Add
             to bag</a>
           <a href="#" class="text-sm font-semibold leading-6 text-white">Learn more <span aria-hidden="true">→</span></a>
         </div>

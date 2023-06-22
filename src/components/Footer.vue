@@ -84,7 +84,7 @@ const navigation = {
 const date = new Date();
 </script>
 <template>
-    <footer class="bg-slate-900">
+    <footer class=" bg-black">
       <div class="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
         <nav class="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12" aria-label="Footer">
           <div v-for="item in navigation.main" :key="item.name" class="pb-6">

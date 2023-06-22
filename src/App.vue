@@ -4,13 +4,15 @@ import Products from './components/Products.vue'
 import Footer from './components/Footer.vue';
 import { db } from './data/productsData';
 import type { ProductsElement, ProductQuantity } from './data/products.interfaces'
-import { onMounted, ref } from 'vue';
+import { onMounted, ref,reactive } from 'vue';
 
 const products = ref<ProductsElement[]>([])
+let promoProduct = reactive({}) as ProductsElement
 const bag = ref<ProductQuantity[]>([])
 
 onMounted(() => {
     products.value = db
+    promoProduct = reactive(db[7])
 });
 
 const addToBag = (product:ProductsElement) => {
@@ -48,9 +50,11 @@ const decreaseProductQuantity = (id:number) => {
 
 <template>
  <Hero 
+ :promoProduct="promoProduct"
  :bag="bag"
  @increase-product-quantity="increaseProductQuantity"
  @decrease-product-quantity="decreaseProductQuantity"
+ @add-to-bag="addToBag"
   />
  <div class="bg-white">
     <div class="mx-auto max-w-2xl px-4 pb-16 sm:px-6 lg:max-w-7xl lg:px-8">
