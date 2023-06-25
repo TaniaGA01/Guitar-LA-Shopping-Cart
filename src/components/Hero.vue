@@ -64,7 +64,7 @@ const allBagProducts = computed(():number => {
           leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 translate-y-1">
           <PopoverPanel class="absolute -right-5 sm:right-0 z-10 mt-2 flex w-screen max-w-max">
             <div
-              class="w-screen max-w-md flex-auto overflow-hidden rounded-xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
+              class="w-screen max-w-md flex-auto rounded-xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5 max-h-[40rem] overflow-scroll">
               <div v-if="bag.length > 0" class="p-4">
 
                 <table class="min-w-full">
