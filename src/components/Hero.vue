@@ -176,7 +176,7 @@ const allBagProducts = computed(():number => {
   </div>
   <div class="relative isolate overflow-hidden bg-black xl:bg-white top-0">
     <div class="absolute -z-10 transform-gpu" aria-hidden="true">
-      <img src="imgs/Guitar-LA-hero-background@2x.png" class="w-full" alt="" srcset="" />
+      <img src="imgs/Guitar-LA-hero-background-2x.png" class="w-full" alt="" srcset="" />
     </div>
     <svg
       class="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
@@ -233,7 +233,7 @@ const allBagProducts = computed(():number => {
       </div>
       <div class="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32">
         <div class="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
-          <img src="imgs/Guitar-banner@2x.png" alt="App screenshot" width="910" />
+          <img src="imgs/Guitar-banner-2x.png" alt="App screenshot" width="910" />
         </div>
       </div>
     </div>
