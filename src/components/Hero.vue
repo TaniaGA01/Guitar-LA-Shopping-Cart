@@ -10,11 +10,14 @@ const props = defineProps<{
 }>();
 
 defineEmits([
-    'increase-product-quantity','decrease-product-quantity', 'add-to-bag' 
+    'increase-product-quantity',
+    'decrease-product-quantity', 
+    'add-to-bag',
+    'delete-Product' 
 ])
 
 let subTotal = computed(():number => {
-  return props.bag.reduce((total, item) => total + (item.data.price * item.quantity), 0)// 0 is the bag's initial value
+  return props.bag.reduce((total, item) => total + (item.data.price * item.quantity), 0)// 0 is the bag's initial value, total is an array with the accumulated value
 })
 
 const taxe = computed(() => {
@@ -128,7 +131,8 @@ const total = computed(() => {
                         </td>
                         <td class="py-5 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">
                           <button type="button"
-                            class="rounded-full bg-amber-600 p-1 text-white shadow-sm hover:bg-amber-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600">
+                            class="rounded-full bg-amber-600 p-1 text-white shadow-sm hover:bg-amber-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
+                            @click="$emit('delete-Product', product.data.id)">
                             <XMarkIcon class="h-3 w-3" aria-hidden="true" />
                           </button>
                         </td>
@@ -146,8 +150,8 @@ const total = computed(() => {
                       <tr>
                         <th scope="row" colspan="3"
                           class="hidden pl-4 pr-3 pt-4 text-right text-sm font-normal text-gray-500 sm:table-cell sm:pl-0">
-                          Tax</th>
-                        <th scope="row" class="pl-6 pr-3 pt-4 text-left text-sm font-normal text-gray-500 sm:hidden">Tax
+                          Tax 20%</th>
+                        <th scope="row" class="pl-6 pr-3 pt-4 text-left text-sm font-normal text-gray-500 sm:hidden">Tax 20%
                         </th>
                         <td class="pl-3 pr-6 pt-4 text-right text-sm text-gray-500 sm:pr-0">{{ taxe }} €</td>
                       </tr>

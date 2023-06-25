@@ -31,19 +31,23 @@ const addToBag = (product:ProductsElement) => {
   
 }
 
-const increaseProductQuantity = (id:number) => {
+const increaseProductQuantity = (id:number):number | undefined => {
   const index = bag.value.findIndex(item => item.data.id === id)
   if(bag.value[index].quantity < 5){
     return bag.value[index].quantity++
   }
 }
 
-const decreaseProductQuantity = (id:number) => {
+const decreaseProductQuantity = (id:number):number | undefined => {
   const index = bag.value.findIndex(item => item.data.id === id)
   if(bag.value[index].quantity > 1){
     return bag.value[index].quantity--
   }
   
+}
+
+const deleteProduct = (id:number):ProductQuantity[] => {
+  return bag.value = bag.value.filter(product => product.data.id !== id)
 }
 
 </script>
@@ -55,6 +59,7 @@ const decreaseProductQuantity = (id:number) => {
  @increase-product-quantity="increaseProductQuantity"
  @decrease-product-quantity="decreaseProductQuantity"
  @add-to-bag="addToBag"
+ @delete-Product="deleteProduct"
   />
  <div class="bg-white">
     <div class="mx-auto max-w-2xl px-4 pb-16 sm:px-6 lg:max-w-7xl lg:px-8">
