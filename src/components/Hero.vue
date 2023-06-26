@@ -52,11 +52,11 @@ const allBagProducts = computed(():number => {
 </script>
 <template>
   <div class="absolute mx-auto px-6 py-6 w-full flex place-content-between items-center top-0 z-10" id="header-top">
-      <img class="h-16" src="imgs/logo.svg" alt="Guitar LA" />
+      <img class="h-16" src="/imgs/logo.svg" alt="Guitar LA" />
       <Popover class="relative">
         <PopoverButton class="inline-flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
           <ShoppingBagIcon class="h-8 text-slate-50" />
-          <p class="text-white absolute bg-amber-500 w-6 h-6 rounded-full -mt-6 -ml-2">{{ allBagProducts }}</p>
+          <p v-if="bag.length > 0" class="text-white absolute bg-amber-500 w-6 h-6 rounded-full -mt-6 -ml-2">{{ allBagProducts }}</p>
         </PopoverButton>
 
         <transition 
@@ -97,7 +97,7 @@ const allBagProducts = computed(():number => {
                   <tbody>
                     <tr v-for="product in bag" :key="product.data.id" class="border-b border-gray-200">
                       <td class="max-w-0 py-5 pl-4 pr-3 text-sm sm:pl-0">
-                        <img class="w-6" :src="`productsImages/${product.data.image}.jpg`" />
+                        <img class="w-6" :src="`/productsImages/${product.data.image}.jpg`" />
                       </td>
                       <td class="max-w-0 py-5 pl-4 pr-3 text-sm sm:pl-0">
                         <div class="font-medium text-gray-900">
