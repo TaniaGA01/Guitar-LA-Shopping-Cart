@@ -55,11 +55,13 @@ const allBagProducts = computed(():number => {
       <img class="h-16" src="imgs/logo.svg" alt="Guitar LA" />
       <Popover class="relative">
         <PopoverButton class="inline-flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
-          <ShoppingBagIcon class="h-6 text-slate-50" />
-          <p class="text-white">{{ allBagProducts }} produits</p>
+          <ShoppingBagIcon class="h-8 text-slate-50" />
+          <p class="text-white absolute bg-amber-500 w-6 h-6 rounded-full -mt-6 -ml-2">{{ allBagProducts }}</p>
         </PopoverButton>
 
-        <transition enter-active-class="transition ease-out duration-200" enter-from-class="opacity-0 translate-y-1"
+        <transition 
+          enter-active-class="transition ease-out duration-200" 
+          enter-from-class="opacity-0 translate-y-1"
           enter-to-class="opacity-100 translate-y-0" leave-active-class="transition ease-in duration-150"
           leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 translate-y-1">
           <PopoverPanel class="absolute -right-5 sm:right-0 z-10 mt-2 flex w-screen max-w-max">
@@ -176,7 +178,7 @@ const allBagProducts = computed(():number => {
   </div>
   <div class="relative isolate overflow-hidden bg-black xl:bg-white top-0">
     <div class="absolute -z-10 transform-gpu" aria-hidden="true">
-      <img src="imgs/Guitar-LA-hero-background-2x.png" class="w-full" alt="" srcset="" />
+      <img src="/imgs/Guitar-LA-hero-background-2x.png" class="w-full" alt="" srcset="" />
     </div>
     <svg
       class="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
@@ -233,7 +235,7 @@ const allBagProducts = computed(():number => {
       </div>
       <div class="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32">
         <div class="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
-          <img src="imgs/Guitar-banner-2x.png" alt="App screenshot" width="910" />
+          <img src="/imgs/Guitar-banner-2x.png" alt="App screenshot" width="910" />
         </div>
       </div>
     </div>
